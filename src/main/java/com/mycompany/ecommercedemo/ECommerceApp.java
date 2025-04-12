@@ -11,13 +11,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import java.io.InputStream;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,11 +38,13 @@ public class ECommerceApp extends Application {
     
     @Override
     public void start(Stage stage) {
-        // Initialize products
-        products.add(new Product(1, "Laptop", 999.99, "Powerful laptop with latest features"));
-        products.add(new Product(2, "Smartphone", 699.99, "Latest smartphone model"));
-        products.add(new Product(3, "Headphones", 149.99, "Wireless noise-cancelling headphones"));
-        products.add(new Product(4, "Tablet", 349.99, "High-resolution tablet"));
+        // Initialize products with image paths
+        products.add(new Product(1, "Laptop", 999.99, "Powerful laptop with latest features", "laptop.png"));
+        products.add(new Product(2, "Smartphone", 699.99, "Latest smartphone model", "smartphone.png"));
+        products.add(new Product(3, "Headphones", 149.99, "Wireless noise-cancelling headphones", "headphones.png"));
+        products.add(new Product(4, "Tablet", 349.99, "High-resolution tablet", "tablet.png"));
+        products.add(new Product(5, "Smartwatch", 249.99, "Fitness tracker with heart rate monitor", "smartwatch.png"));
+        products.add(new Product(6, "Bluetooth Speaker", 79.99, "Portable wireless speaker with great sound", "speaker.png"));
         
         // Create header
         Label titleLabel = new Label("Simple E-Commerce Demo");
@@ -51,7 +57,7 @@ public class ECommerceApp extends Application {
         header.setStyle("-fx-background-color: #3498db;");
         
         // Create product container
-        VBox productsBox = new VBox(10);
+        VBox productsBox = new VBox(15);
         productsBox.setPadding(new Insets(15));
         
         // Add product items
@@ -123,22 +129,49 @@ public class ECommerceApp extends Application {
         root.setCenter(tabPane);
         
         // Create scene and show stage
-        Scene scene = new Scene(root, 600, 500);
+        Scene scene = new Scene(root, 650, 600);
         stage.setTitle("E-Commerce Demo");
         stage.setScene(scene);
         stage.show();
     }
     
     private HBox createProductBox(Product product) {
+        // Create product image
+        ImageView imageView = new ImageView();
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
+        imageView.setPreserveRatio(true);
+        
+        try {
+            // Load image from resources
+            InputStream is = getClass().getResourceAsStream("/com/mycompany/ecommercedemo/images/" + product.getImagePath());
+            if (is != null) {
+                Image image = new Image(is);
+                imageView.setImage(image);
+            } else {
+                // If image not found, use a placeholder or show a message
+                System.out.println("Image not found: " + product.getImagePath());
+                imageView.setStyle("-fx-background-color: #f0f0f0;");
+            }
+        } catch (Exception e) {
+            System.err.println("Error loading image: " + e.getMessage());
+            imageView.setStyle("-fx-background-color: #f0f0f0;");
+        }
+        
+        // Create product info
         Label nameLabel = new Label(product.getName());
-        nameLabel.setFont(Font.font("System", FontWeight.BOLD, 14));
+        nameLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
         
         Label priceLabel = new Label(currencyFormat.format(product.getPrice()));
+        priceLabel.setFont(Font.font("System", 14));
         
         Label descLabel = new Label(product.getDescription());
+        descLabel.setWrapText(true);
         
         VBox infoBox = new VBox(5, nameLabel, priceLabel, descLabel);
+        HBox.setHgrow(infoBox, Priority.ALWAYS);
         
+        // Add to cart button
         Button addButton = new Button("Add to Cart");
         addButton.setStyle("-fx-background-color: #2ecc71; -fx-text-fill: white;");
         addButton.setOnAction(e -> {
@@ -147,10 +180,15 @@ public class ECommerceApp extends Application {
                     "Added " + product.getName() + " to your cart!");
         });
         
-        HBox productBox = new HBox(15, infoBox, addButton);
+        // Container for button to align it vertically in the center
+        VBox buttonBox = new VBox(addButton);
+        buttonBox.setAlignment(Pos.CENTER);
+        
+        // Create product box with image, info and button
+        HBox productBox = new HBox(15, imageView, infoBox, buttonBox);
         productBox.setAlignment(Pos.CENTER_LEFT);
-        productBox.setPadding(new Insets(10));
-        productBox.setStyle("-fx-border-color: #ddd; -fx-border-radius: 5;");
+        productBox.setPadding(new Insets(15));
+        productBox.setStyle("-fx-border-color: #ddd; -fx-border-radius: 5; -fx-background-color: white;");
         
         return productBox;
     }
