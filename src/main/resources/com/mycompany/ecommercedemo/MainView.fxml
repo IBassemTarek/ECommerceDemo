@@ -1,153 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ecommercedemo.MainViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.ecommercedemo.MainViewController">
    <top>
-      <HBox alignment="CENTER" prefHeight="60.0" style="-fx-background-color: #3498db;" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Simple E-Commerce Store" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
+      <Label alignment="CENTER" maxWidth="Infinity" prefHeight="50.0" style="-fx-background-color: #3498db;" text="Simple E-Commerce Demo" textFill="WHITE" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
    </top>
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="Shop">
+          <Tab text="Products">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ScrollPane fitToWidth="true" layoutX="14.0" layoutY="14.0" prefHeight="389.0" prefWidth="772.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <content>
-                              <FlowPane fx:id="productContainer" hgap="10.0" prefHeight="387.0" prefWidth="798.0" vgap="10.0" />
-                           </content>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </ScrollPane>
-                        <HBox alignment="CENTER" layoutX="300.0" layoutY="395.0" prefHeight="95.0" prefWidth="772.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#viewCartButtonAction" style="-fx-background-color: #2ecc71;" text="View Cart" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
+                <children>
+                  <VBox fx:id="productContainer" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <padding>
+                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                    <children>
+                      <Label text="Products will appear here" />
+                      <Button fx:id="viewCartButton" mnemonicParsing="false" onAction="#viewCartButtonAction" text="View Cart" />
+                    </children>
+                  </VBox>
+                </children>
+              </AnchorPane>
             </content>
           </Tab>
           <Tab text="Cart">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ListView fx:id="cartListView" layoutX="14.0" layoutY="14.0" prefHeight="389.0" prefWidth="772.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                        <HBox alignment="CENTER" layoutX="86.0" layoutY="431.0" prefHeight="60.0" prefWidth="772.0" spacing="20.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <children>
-                              <Label text="Total:">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="totalPriceLabel" text="$0.00">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" layoutX="286.0" layoutY="489.0" prefHeight="40.0" prefWidth="772.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#clearCartButtonAction" style="-fx-background-color: #e74c3c;" text="Clear Cart" textFill="WHITE" />
-                              <Button mnemonicParsing="false" onAction="#checkoutButtonAction" style="-fx-background-color: #3498db;" text="Checkout" textFill="WHITE" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Checkout">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <VBox layoutX="167.0" layoutY="76.0" prefHeight="502.0" prefWidth="800.0" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Label text="Checkout Information">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <GridPane hgap="10.0" vgap="15.0">
-                                <columnConstraints>
-                                  <columnConstraints hgrow="SOMETIMES" maxWidth="388.0" minWidth="10.0" prefWidth="150.0" />
-                                  <columnConstraints hgrow="SOMETIMES" maxWidth="650.0" minWidth="10.0" prefWidth="610.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <rowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <rowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <rowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <rowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <rowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <rowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Label text="Full Name:" />
-                                    <Label text="Email:" GridPane.rowIndex="1" />
-                                    <Label text="Address:" GridPane.rowIndex="2" />
-                                    <Label text="City:" GridPane.rowIndex="3" />
-                                    <Label text="Postal Code:" GridPane.rowIndex="4" />
-                                    <Label text="Phone Number:" GridPane.rowIndex="5" />
-                                    <TextField fx:id="nameField" GridPane.columnIndex="1" />
-                                    <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <TextField fx:id="postalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                 </children>
-                              </GridPane>
-                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                                 <children>
-                                    <Label fx:id="checkoutTotalLabel" text="Total: $0.00">
-                                       <font>
-                                          <Font name="System Bold" size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Button mnemonicParsing="false" onAction="#placeOrderButtonAction" style="-fx-background-color: #2ecc71;" text="Place Order" textFill="WHITE">
-                                       <font>
-                                          <Font name="System Bold" size="14.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
+                <children>
+                  <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <padding>
+                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                    <children>
+                      <Label text="Cart Items" />
+                      <Button fx:id="checkoutButton" mnemonicParsing="false" onAction="#checkoutButtonAction" text="Checkout" />
+                    </children>
+                  </VBox>
+                </children>
+              </AnchorPane>
             </content>
           </Tab>
         </tabs>
